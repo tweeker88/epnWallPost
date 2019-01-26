@@ -19,11 +19,6 @@ class Product
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $category;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
     private $name;
 
     /**
@@ -46,21 +41,14 @@ class Product
      */
     private $url;
 
+    /**
+     * @ORM\Column(type="string")
+     */
+    private $productId;
+
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getCategory(): ?string
-    {
-        return $this->category;
-    }
-
-    public function setCategory(string $category): self
-    {
-        $this->category = $category;
-
-        return $this;
     }
 
     public function getName(): ?string
@@ -119,6 +107,18 @@ class Product
     public function setUrl(string $url): self
     {
         $this->url = $url;
+
+        return $this;
+    }
+
+    public function getProductId(): ?int
+    {
+        return $this->productId;
+    }
+
+    public function setProductId(int $productId): self
+    {
+        $this->productId = $productId;
 
         return $this;
     }
