@@ -5,7 +5,6 @@ namespace App\Controller;
 use App\Api\Epn;
 use App\Api\Vk;
 use App\Entity\Product;
-use App\Epn\clEPNAPIAccess;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -17,11 +16,13 @@ class IndexController extends AbstractController
     /**
      * @Route("/", name="index")
      * @return Response
+     * @var ObjectManager $manager
+     * @var Vk $vk
+     * @var Epn $epn
      */
-    public function index(ObjectManager $manager, Vk $vk)
+    public function index(ObjectManager $manager, Vk $vk, Epn $epn): Response
     {
-//        $epn = new Epn(new clEPNAPIAccess('2fa7b3ebac5a069ea822a1f6e9b3cc78', 'plstykkckaa63hps96m5phcmuewg7gc1'));
-//
+        $epn->sendRequest();
 //        if ($epn->sendRequest()) {
 //            $items = $epn->getAnswer();
 //            foreach ($items['offers'] as $item) {
@@ -39,8 +40,8 @@ class IndexController extends AbstractController
 //
 //            $manager->flush();
 //        }
-
-        dump($vk->sendRequest());die;
+//
+//        dump($vk->sendRequest());die;
 
         return new Response('done');
     }

@@ -13,7 +13,7 @@ class Vk
     private $vk;
 
     /** @var ProductRepository */
-    private $productsrepositoru;
+    private $productsRepository;
 
     private const TOKEN = '40615bd69d9c9e3780468bdf0937829a50bbd6300e1a49ec9016d383ce28d7e74ac72718627c2eef15569';
     private const GROUP_ID = '-177306035';
@@ -21,7 +21,7 @@ class Vk
     public function __construct(VKApiClient $VKApiClient, ProductRepository $productRepository)
     {
         $this->vk = $VKApiClient;
-        $this->productsrepositoru = $productRepository;
+        $this->productsRepository = $productRepository;
     }
 
     public function sendRequest() //@TODO рефакторинг ЖЕСТКИЙ
@@ -29,7 +29,7 @@ class Vk
         /**
          * @var $product Product
          */
-        $products = $this->productsrepositoru->findAll();
+        $products = $this->productsRepository->findAll();
 
         if ($products === null) {
             return false;
