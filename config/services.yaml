@@ -31,6 +31,9 @@ services:
   VK\Client\VKApiClient:
     public: true
 
+  App\Service\MainBuilder:
+    public: true
+
   App\Epn\clEPNAPIAccess:
     arguments:
       $user_api_key: '%env(USER_KEY)%'
@@ -39,3 +42,4 @@ services:
   App\Api\Epn:
     arguments:
       $epn: '@App\Epn\clEPNAPIAccess'
+

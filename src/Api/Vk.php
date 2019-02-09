@@ -37,7 +37,7 @@ class Vk
 
         foreach ($products as $product) {
 
-            $name = strrchr($product->getPicture(), '/');
+            $name = strrchr($product->getPicture(), '/'); // wwww.site.ru/catalog     img1.jpg
             $path = __DIR__ . '/../../public/img' . $name;
 
             if(!is_file($path)){
