@@ -7,7 +7,7 @@ use App\Entity\Product;
 use App\Repository\ProductRepository;
 use Doctrine\ORM\EntityManagerInterface;
 
-class MainBuilder
+class MainService
 {
     /**
      * @var EntityManagerInterface
@@ -19,7 +19,7 @@ class MainBuilder
     private $productRepository;
 
     /**
-     * MainBuilder constructor.
+     * MainService constructor.
      * @param EntityManagerInterface $manager
      * @param ProductRepository $productRepository
      */

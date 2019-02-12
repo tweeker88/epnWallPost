@@ -2,7 +2,9 @@
 
 namespace App\Entity;
 
+use App\Repository\ProductRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ProductRepository")
@@ -45,6 +47,13 @@ class Product
      * @ORM\Column(type="string")
      */
     private $productId;
+
+    /**
+     * @var \DateTime
+     * @Gedmo\Timestampable(on="create")
+     * @ORM\Column(type="datetime")
+     */
+    private $createdAt;
 
     public function getId(): ?int
     {
@@ -119,6 +128,18 @@ class Product
     public function setProductId(int $productId): self
     {
         $this->productId = $productId;
+
+        return $this;
+    }
+
+    public function getCreatedAt(): string
+    {
+        return $this->createdAt->format('Y-d-m');
+    }
+
+    public function setCreatedAt(\DateTimeInterface $createdAt): self
+    {
+        $this->createdAt = $createdAt;
 
         return $this;
     }

@@ -1,10 +1,26 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    {% for item in items %}
-        {{ dump(items) }}
-        <ul>
-            <li><a href="{{ item.url }}" target="_blank">{{ item.name }}</a></li>
-        </ul>
-    {% endfor %}
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>Название</th>
+                <th>Цена</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for product in products %}
+                <tr>
+                    <td>
+                        <a href="{{ product.url }}" target="_blank">
+                            {{ product.name| truncate }}
+                        </a>
+                    </td>
+                    <td>
+                        {{ product.salePrice }}
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
 {% endblock %}

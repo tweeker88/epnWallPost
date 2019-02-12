@@ -4,8 +4,10 @@ namespace App\Controller;
 
 use App\Api\Epn;
 use App\Api\Vk;
+use App\Entity\Product;
+use App\Repository\ProductRepository;
 use App\Service\CollectionBuilder;
-use App\Service\MainBuilder;
+use App\Service\MainService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
@@ -17,23 +19,29 @@ class IndexController extends AbstractController
     /**
      * @var $vk Vk
      * @var $epn Epn
-     * @var $builder MainBuilder
+     * @var $builder MainService
      */
     private $vk;
     private $epn;
     private $builder;
+    /**
+     * @var ProductRepository
+     */
+    private $productRepository;
 
     /**
      * IndexController constructor.
      * @param Vk $vk
      * @param Epn $epn
-     * @param MainBuilder $builder
+     * @param MainService $builder
+     * @param ProductRepository $productRepository
      */
-    public function __construct(Vk $vk, Epn $epn, MainBuilder $builder)
+    public function __construct(Vk $vk, Epn $epn, MainService $builder, ProductRepository $productRepository)
     {
         $this->vk = $vk;
         $this->epn = $epn;
         $this->builder = $builder;
+        $this->productRepository = $productRepository;
     }
 
     /**
@@ -41,13 +49,14 @@ class IndexController extends AbstractController
      * @param CollectionBuilder $collectionBuilder
      * @return Response
      */
-    public function index(CollectionBuilder $collectionBuilder): Response
+    public function index(): Response
     {
+        /** @var $first Product */
+        $firstProduct = $this->productRepository->findFirstProduct();
 
-        $items = $this->epn->sendRequestSearch('200574005');
-        $this->builder->addProducts($collectionBuilder->createCollection($items));
+        $products = $this->productRepository->findAll();
 
-        return new Response('Done');
+        return $this->render('index.html.twig', ['products' => $products]);
     }
 
     /**
@@ -56,5 +65,11 @@ class IndexController extends AbstractController
     public function addCategories(): Response
     {
         return new JsonResponse($this->epn->sendRequestCategory());
+    }
+
+    public function getProducts(CollectionBuilder $collectionBuilder)
+    {
+        $items = $this->epn->sendRequestSearch('200574005');
+        $this->builder->addProducts($collectionBuilder->createCollection($items));
     }
 }
