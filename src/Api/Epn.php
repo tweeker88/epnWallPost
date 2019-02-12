@@ -10,9 +10,6 @@ class Epn
     /**@var $epn clEPNAPIAccess */
     private $epn;
 
-    private $step = 0;
-
-
     /**
      * @param clEPNAPIAccess $epn
      */
@@ -39,15 +36,13 @@ class Epn
      * @param string $category
      * @return bool
      */
-    public function sendRequestSearch(int $limit, int $offset, string $category): array
+    public function sendRequestSearch(string $category): array
     {
-        $this->step += $offset;
-
         $this->epn->AddRequestSearch('random_goods_1', [
             'query' => '',
             'orderby' => 'orders_count',
-            'limit' => $limit,
-            'offset' => $this->step,
+            'limit' => 500,
+            'offset' => 0,
             'category' => $category,
             'lang' => 'ru',
             'currency' => 'RUR'

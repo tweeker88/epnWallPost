@@ -3,13 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="3ce5d531-23da-4897-ab80-d63ef802b091" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/services.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/services.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Api/Epn.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Api/Epn.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Api/Vk.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Api/Vk.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controller/IndexController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/IndexController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Repository/ProductRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/ProductRepository.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Service/MainBuilder.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/MainBuilder.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -54,34 +50,35 @@
     <session id="1922563768">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="13" />
+          <entry key="project.closed" value="14" />
           <entry key="project.open.time.0" value="3" />
-          <entry key="project.open.time.1" value="9" />
+          <entry key="project.open.time.1" value="10" />
           <entry key="project.open.time.14" value="1" />
           <entry key="project.open.time.4" value="1" />
-          <entry key="project.opened" value="14" />
+          <entry key="project.opened" value="15" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
           <entry key="env" value="4" />
-          <entry key="gitignore" value="3" />
+          <entry key="gitignore" value="4" />
           <entry key="json" value="1" />
           <entry key="local" value="3" />
-          <entry key="php" value="50" />
-          <entry key="product" value="9" />
-          <entry key="sql" value="1" />
+          <entry key="migration_versions" value="1" />
+          <entry key="php" value="52" />
+          <entry key="product" value="14" />
+          <entry key="sql" value="4" />
           <entry key="yaml" value="5" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
           <entry key=".env file" value="7" />
-          <entry key="Database Element" value="9" />
+          <entry key="Database Element" value="15" />
           <entry key="JSON" value="1" />
-          <entry key="PHP" value="50" />
-          <entry key="PLAIN_TEXT" value="3" />
-          <entry key="Scratch" value="1" />
+          <entry key="PHP" value="52" />
+          <entry key="PLAIN_TEXT" value="4" />
+          <entry key="Scratch" value="4" />
           <entry key="YAML" value="5" />
         </counts>
       </usages-collector>
@@ -91,7 +88,8 @@
           <entry key="gitignore" value="10" />
           <entry key="json" value="5" />
           <entry key="local" value="13" />
-          <entry key="php" value="5774" />
+          <entry key="php" value="6235" />
+          <entry key="sql" value="9" />
           <entry key="txt" value="7" />
           <entry key="yaml" value="186" />
         </counts>
@@ -100,8 +98,9 @@
         <counts>
           <entry key=".env file" value="42" />
           <entry key="JSON" value="5" />
-          <entry key="PHP" value="5774" />
+          <entry key="PHP" value="6235" />
           <entry key="PLAIN_TEXT" value="17" />
+          <entry key="Scratch" value="9" />
           <entry key="YAML" value="186" />
         </counts>
       </usages-collector>
@@ -114,11 +113,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Api/Epn.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="363">
-              <caret line="45" column="34" selection-start-line="45" selection-start-column="34" selection-end-line="45" selection-end-column="34" />
+            <state relative-caret-position="36">
+              <caret line="39" column="5" selection-start-line="39" selection-start-column="5" selection-end-line="39" selection-end-column="5" />
             </state>
           </provider>
         </entry>
@@ -126,8 +125,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Controller/IndexController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="573">
-              <caret line="46" column="96" selection-start-line="46" selection-start-column="96" selection-end-line="46" selection-end-column="96" />
+            <state relative-caret-position="298">
+              <caret line="47" selection-start-line="47" selection-end-line="47" />
               <folding>
                 <element signature="e#34#50#0#PHP" expanded="true" />
               </folding>
@@ -135,11 +134,14 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="das://02c69db6-ebe6-4eb5-9576-268b485fcaeb/schema/ali/table/product">
-          <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-            <state>
-              <filtering enabled="true" />
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/Service/MainBuilder.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="478">
+              <caret line="42" column="25" selection-start-line="42" selection-start-column="25" selection-end-line="42" selection-end-column="25" />
+              <folding>
+                <element signature="e#32#55#0#PHP" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -171,13 +173,14 @@
         <option value="$PROJECT_DIR$/.env.local" />
         <option value="$PROJECT_DIR$/public/index.php" />
         <option value="$PROJECT_DIR$/src/Api/Vk.php" />
-        <option value="$PROJECT_DIR$/src/Service/CollectionBuilder.php" />
         <option value="$PROJECT_DIR$/config/services.yaml" />
         <option value="$PROJECT_DIR$/src/Entity/Product.php" />
         <option value="$PROJECT_DIR$/src/Repository/ProductRepository.php" />
-        <option value="$PROJECT_DIR$/src/Service/MainBuilder.php" />
-        <option value="$PROJECT_DIR$/src/Controller/IndexController.php" />
         <option value="$PROJECT_DIR$/src/Api/Epn.php" />
+        <option value="$PROJECT_DIR$/src/Service/CollectionBuilder.php" />
+        <option value="$PROJECT_DIR$/src/Controller/IndexController.php" />
+        <option value="$PROJECT_DIR$/src/Service/MainBuilder.php" />
+        <option value="$APPLICATION_CONFIG_DIR$/consoles/db/02c69db6-ebe6-4eb5-9576-268b485fcaeb/console.sql" />
       </list>
     </option>
   </component>
@@ -327,8 +330,8 @@
   <component name="PropertiesComponent">
     <property name="DatabaseDriversLRU" value="mysql" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="database.console.LAST_STATE" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../theory" />
+    <property name="database.console.LAST_STATE" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../omni-notifier" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
   </component>
@@ -384,18 +387,19 @@
       <workItem from="1549350240844" duration="1697000" />
       <workItem from="1549353014761" duration="440000" />
       <workItem from="1549445878056" duration="2522000" />
-      <workItem from="1549709098345" duration="8094000" />
+      <workItem from="1549709098345" duration="10116000" />
+      <workItem from="1549955311167" duration="2295000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="51992000" />
+    <option name="totallyTimeSpent" value="56309000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="67" y="25" width="1853" height="1055" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.31433314" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.31820697" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -408,9 +412,9 @@
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Database Changes" order="8" />
       <window_info anchor="bottom" id="Version Control" order="9" />
-      <window_info anchor="bottom" id="Terminal" order="10" weight="0.5881081" />
+      <window_info anchor="bottom" id="Terminal" order="10" weight="0.5891892" />
       <window_info anchor="bottom" id="Event Log" order="11" side_tool="true" />
-      <window_info anchor="bottom" id="Database Console" order="12" weight="0.32972974" />
+      <window_info active="true" anchor="bottom" id="Database Console" order="12" visible="true" weight="0.32972974" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -469,9 +473,6 @@
           <caret line="14" column="31" lean-forward="true" selection-start-line="14" selection-start-column="31" selection-end-line="14" selection-end-column="31" />
         </state>
       </provider>
-    </entry>
-    <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/02c69db6-ebe6-4eb5-9576-268b485fcaeb/console.sql">
-      <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Migrations/Version20190126133742.php" />
     <entry file="file://$PROJECT_DIR$/src/Migrations/Version20190126134323.php">
@@ -540,13 +541,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/.gitignore">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="6" selection-start-column="6" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Epn/clEPNAPIAccess.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="291">
@@ -606,19 +600,40 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Service/CollectionBuilder.php">
+    <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="18" column="20" selection-start-line="18" selection-start-column="20" selection-end-line="18" selection-end-column="20" />
+        <state>
+          <caret column="6" selection-start-column="6" selection-end-column="6" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Service/MainBuilder.php">
+    <entry file="das://02c69db6-ebe6-4eb5-9576-268b485fcaeb/schema/ali/table/migration_versions">
+      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+        <state>
+          <filtering enabled="true" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Api/Epn.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="513">
-          <caret line="38" selection-start-line="38" selection-end-line="38" />
+        <state relative-caret-position="36">
+          <caret line="39" column="5" selection-start-line="39" selection-start-column="5" selection-end-line="39" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Service/CollectionBuilder.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="463">
+          <caret line="35" selection-start-line="35" selection-end-line="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Controller/IndexController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="298">
+          <caret line="47" selection-start-line="47" selection-end-line="47" />
           <folding>
-            <element signature="e#32#55#0#PHP" expanded="true" />
+            <element signature="e#34#50#0#PHP" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -630,20 +645,16 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Controller/IndexController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="573">
-          <caret line="46" column="96" selection-start-line="46" selection-start-column="96" selection-end-line="46" selection-end-column="96" />
-          <folding>
-            <element signature="e#34#50#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
+    <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/02c69db6-ebe6-4eb5-9576-268b485fcaeb/console.sql">
+      <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Api/Epn.php">
+    <entry file="file://$PROJECT_DIR$/src/Service/MainBuilder.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="363">
-          <caret line="45" column="34" selection-start-line="45" selection-start-column="34" selection-end-line="45" selection-end-column="34" />
+        <state relative-caret-position="478">
+          <caret line="42" column="25" selection-start-line="42" selection-start-column="25" selection-end-line="42" selection-end-column="25" />
+          <folding>
+            <element signature="e#32#55#0#PHP" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

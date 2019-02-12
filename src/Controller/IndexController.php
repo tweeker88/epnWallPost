@@ -43,12 +43,11 @@ class IndexController extends AbstractController
      */
     public function index(CollectionBuilder $collectionBuilder): Response
     {
-        do {
-            $items = $this->epn->sendRequestSearch(10, $this->builder->getCount(), '200574005');
-            $this->builder->addProducts($collectionBuilder->createCollection($items));
-        } while ($this->builder->getCount() < 10);
 
-        return new Response($this->builder->getCount());
+        $items = $this->epn->sendRequestSearch('200574005');
+        $this->builder->addProducts($collectionBuilder->createCollection($items));
+
+        return new Response('Done');
     }
 
     /**
