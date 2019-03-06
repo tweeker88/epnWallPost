@@ -4,15 +4,14 @@ namespace App\Controller;
 
 use App\Api\Epn;
 use App\Api\Vk;
-use App\Entity\Product;
 use App\Repository\ProductRepository;
-use App\Service\CollectionBuilder;
 use App\Service\MainService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Request;
 
 class IndexController extends AbstractController
 {
@@ -47,11 +46,12 @@ class IndexController extends AbstractController
 
     /**
      * @Route("/", name="index")
+     * @param Request $request
      * @return Response
      */
-    public function index(): Response
+    public function index(Request $request): Response
     {
-        $products = $this->productRepository->findAll();
+        $products = $this->productRepository->findProductsWithSearch($request->query->get('q'));
 
         return $this->render('index.html.twig', ['products' => $products, 'lastDate' => $this->builder->getDateLastParsing()]);
     }

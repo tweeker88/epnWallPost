@@ -56,14 +56,14 @@ class MainService
         $this->manager->flush();
     }
 
-    public function getDateLastParsing(): string
+    public function getDateLastParsing()
     {
         try {
             /** @var Product $firstProduct */
             $lastProduct = $this->productRepository->findLastProduct();
 
         } catch (NonUniqueResultException $e) {
-            return $e->getMessage();
+            return null;
         }
         return $lastProduct->getCreatedAt();
     }

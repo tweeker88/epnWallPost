@@ -54,4 +54,22 @@ class ProductRepository extends ServiceEntityRepository
             ->delete()
             ->getQuery()->execute();
     }
+
+    /**
+     * @param string|null $term
+     * @return mixed
+     */
+    public function findProductsWithSearch(?string $term)
+    {
+        $qb = $this->createQueryBuilder('p');
+
+        if ($term !== null) {
+            $qb->andWhere('p.name LIKE :term')
+                ->setParameter('term' , '%' . $term . '%');
+        }
+
+        $res = $qb->orderBy('p.createdAt', 'DESC')->getQuery()->getResult();
+
+        return $res;
+    }
 }
