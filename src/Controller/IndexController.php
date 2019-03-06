@@ -10,6 +10,7 @@ use App\Service\CollectionBuilder;
 use App\Service\MainService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -46,17 +47,13 @@ class IndexController extends AbstractController
 
     /**
      * @Route("/", name="index")
-     * @param CollectionBuilder $collectionBuilder
      * @return Response
      */
     public function index(): Response
     {
-        /** @var $first Product */
-        $firstProduct = $this->productRepository->findFirstProduct();
-
         $products = $this->productRepository->findAll();
 
-        return $this->render('index.html.twig', ['products' => $products]);
+        return $this->render('index.html.twig', ['products' => $products, 'lastDate' => $this->builder->getDateLastParsing()]);
     }
 
     /**
@@ -67,9 +64,25 @@ class IndexController extends AbstractController
         return new JsonResponse($this->epn->sendRequestCategory());
     }
 
-    public function getProducts(CollectionBuilder $collectionBuilder)
+    /**
+     * @Route("/get-products", name="get-products", methods={"GET"})
+     * @return RedirectResponse
+     */
+    public function getProducts(): RedirectResponse
     {
-        $items = $this->epn->sendRequestSearch('200574005');
-        $this->builder->addProducts($collectionBuilder->createCollection($items));
+        $this->builder->getProducts();
+
+        return new RedirectResponse($this->generateUrl('index'));
     }
+
+    /**
+     * @Route("/delete-products", name="delete-products")
+     */
+    public function DeleteAllProducts(): Response
+    {
+        $this->builder->deleteAllProducts();
+
+        return new RedirectResponse($this->generateUrl('index'));
+    }
+
 }

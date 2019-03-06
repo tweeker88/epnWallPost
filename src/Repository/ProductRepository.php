@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Product;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\NonUniqueResultException;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
@@ -19,13 +20,23 @@ class ProductRepository extends ServiceEntityRepository
         parent::__construct($registry, Product::class);
     }
 
-    public function findFirstProduct()
+    /**
+     * @return mixed
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function findLastProduct()
     {
-        return $this->createQueryBuilder('p')
+        $lastProduct = $this->createQueryBuilder('p')
             ->orderBy('p.createdAt', 'ASC')
             ->setMaxResults(1)
             ->getQuery()
-            ->getSingleResult();
+            ->getOneOrNullResult();
+
+        if ($lastProduct === null) {
+            throw new NonUniqueResultException('Не найдено товаров');
+        }
+
+        return $lastProduct;
     }
 
 
@@ -35,5 +46,12 @@ class ProductRepository extends ServiceEntityRepository
             ->select('p.productId')
             ->getQuery()
             ->getArrayResult();
+    }
+
+    public function deleteAllProducts()
+    {
+        return $this->createQueryBuilder('p')
+            ->delete()
+            ->getQuery()->execute();
     }
 }
