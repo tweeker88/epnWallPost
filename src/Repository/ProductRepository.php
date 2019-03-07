@@ -68,8 +68,8 @@ class ProductRepository extends ServiceEntityRepository
                 ->setParameter('term' , '%' . $term . '%');
         }
 
-        $res = $qb->orderBy('p.createdAt', 'DESC')->getQuery()->getResult();
-
-        return $res;
+        return $qb->orderBy('p.createdAt', 'DESC')
+            ->getQuery()
+            ->getResult();
     }
 }

@@ -3,38 +3,38 @@
 {% block body %}
     <div class="d-flex align-items-center p-3 my-3 text-white-50 bg-purple rounded box-shadow">
         <div class="col-md-7">
-            <i class="fas fa-box-open pr-icon"></i>
+            <i class="fas fa-chart-bar pr-icon"></i>
             <div class="lh-100">
-                <h6 class="mb-0 text-white lh-100">Товары</h6>
+                <h6 class="mb-0 text-white lh-100">Категории</h6>
                 {%  if lastDate %}
                 <small>Последнее
-                    обновление: {{ lastDate| date("d.m.Y") }}
+                обновление: {{ lastDate| date("d.m.Y") }}
                 </small>
-               {% endif %}
+                {% endif %}
             </div>
         </div>
         <div class="col-md-5">
-            <a href="{{ path('categories') }}" type="button" class="btn btn-success">Обновить товары</a>
-            <a href="{{ path('delete-products') }}" type="button" class="btn btn-danger">Очистить таблицу</a>
+            <a href="{{ path('get-categories') }}" type="button" class="btn btn-success">Обновить категории</a>
+            <a href="{{ path('delete-categories') }}" type="button" class="btn btn-danger">Очистить таблицу</a>
         </div>
     </div>
     <table class="table table-striped">
         <thead>
         <tr>
             <th>Название</th>
-            <th>Цена</th>
+            <th>Id Epn</th>
         </tr>
         </thead>
         <tbody>
-        {% for product in products %}
+        {% for category in categories %}
             <tr>
                 <td>
-                    <a href="{{ product.url }}" target="_blank">
-                        {{ product.name| truncate }}
+                    <a href="{{ path('get-products-of-this-category', {idCategory: category.idEpn}) }}">
+                    {{ category.name| truncate }}
                     </a>
                 </td>
                 <td>
-                    {{ product.salePrice }}
+                    {{ category.idEpn }}
                 </td>
             </tr>
         {% endfor %}

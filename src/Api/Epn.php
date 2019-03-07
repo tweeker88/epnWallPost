@@ -31,10 +31,8 @@ class Epn
     }
 
     /**
-     * @param int $limit
-     * @param int $offset
      * @param string $category
-     * @return bool
+     * @return array
      */
     public function sendRequestSearch(string $category): array
     {
@@ -54,13 +52,6 @@ class Epn
         return $this->epn->GetRequestResult('random_goods_1');
     }
 
-    /**
-     * @return array
-     */
-    public function getAnswer(): array
-    {
-        return $this->epn->GetRequestResult('random_goods_1');
-    }
 
     /**
      * @return string

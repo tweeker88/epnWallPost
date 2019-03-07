@@ -5,9 +5,9 @@ namespace App\Controller;
 use App\Api\Epn;
 use App\Api\Vk;
 use App\Repository\ProductRepository;
-use App\Service\MainService;
+use App\Service\CategoryService;
+use App\Service\ProductService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -17,13 +17,9 @@ class IndexController extends AbstractController
 {
 
     /**
-     * @var $vk Vk
-     * @var $epn Epn
-     * @var $builder MainService
+     * @var $service ProductService
      */
-    private $vk;
-    private $epn;
-    private $builder;
+    private $service;
     /**
      * @var ProductRepository
      */
@@ -31,16 +27,12 @@ class IndexController extends AbstractController
 
     /**
      * IndexController constructor.
-     * @param Vk $vk
-     * @param Epn $epn
-     * @param MainService $builder
+     * @param ProductService $service
      * @param ProductRepository $productRepository
      */
-    public function __construct(Vk $vk, Epn $epn, MainService $builder, ProductRepository $productRepository)
+    public function __construct(ProductService $service, ProductRepository $productRepository)
     {
-        $this->vk = $vk;
-        $this->epn = $epn;
-        $this->builder = $builder;
+        $this->service = $service;
         $this->productRepository = $productRepository;
     }
 
@@ -53,26 +45,7 @@ class IndexController extends AbstractController
     {
         $products = $this->productRepository->findProductsWithSearch($request->query->get('q'));
 
-        return $this->render('index.html.twig', ['products' => $products, 'lastDate' => $this->builder->getDateLastParsing()]);
-    }
-
-    /**
-     * @Route("/categories", name="categories")
-     */
-    public function addCategories(): Response
-    {
-        return new JsonResponse($this->epn->sendRequestCategory());
-    }
-
-    /**
-     * @Route("/get-products", name="get-products", methods={"GET"})
-     * @return RedirectResponse
-     */
-    public function getProducts(): RedirectResponse
-    {
-        $this->builder->getProducts();
-
-        return new RedirectResponse($this->generateUrl('index'));
+        return $this->render('index.html.twig', ['products' => $products, 'lastDate' => $this->service->getDateLastParsing()]);
     }
 
     /**
@@ -80,7 +53,7 @@ class IndexController extends AbstractController
      */
     public function DeleteAllProducts(): Response
     {
-        $this->builder->deleteAllProducts();
+        $this->service->deleteAllProducts();
 
         return new RedirectResponse($this->generateUrl('index'));
     }

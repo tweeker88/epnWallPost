@@ -9,7 +9,7 @@ use App\Repository\ProductRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\NonUniqueResultException;
 
-class MainService
+class ProductService
 {
     /**
      * @var EntityManagerInterface
@@ -29,7 +29,7 @@ class MainService
     private $epn;
 
     /**
-     * MainService constructor.
+     * ProductService constructor.
      * @param EntityManagerInterface $manager
      * @param ProductRepository $productRepository
      * @param CollectionBuilder $collectionBuilder
@@ -59,7 +59,7 @@ class MainService
     public function getDateLastParsing()
     {
         try {
-            /** @var Product $firstProduct */
+            /** @var Product $lastProduct */
             $lastProduct = $this->productRepository->findLastProduct();
 
         } catch (NonUniqueResultException $e) {
@@ -68,10 +68,11 @@ class MainService
         return $lastProduct->getCreatedAt();
     }
 
-    public function getProducts(): void
+    public function getProducts($idCategory): void
     {
-        $items = $this->epn->sendRequestSearch('200574005');
-        $this->saveProducts($this->collectionBuilder->createCollection($items));
+        $items = $this->epn->sendRequestSearch($idCategory);
+
+        $this->saveProducts($this->collectionBuilder->createCollectionProduct($items));
     }
 
     public function deleteAllProducts(): void

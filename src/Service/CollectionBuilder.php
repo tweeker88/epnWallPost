@@ -3,6 +3,7 @@
 namespace App\Service;
 
 
+use App\Entity\Category;
 use App\Entity\Product;
 
 class CollectionBuilder
@@ -10,13 +11,13 @@ class CollectionBuilder
     /**
      * @var array $collection
      */
-    private $collection;
+    private $collection = [];
 
     /**
      * @param array $items
      * @return array
      */
-    public function createCollection(array $items): array
+    public function createCollectionProduct(array $items): array
     {
         if ($items['total_found'] !== 0) {
             foreach ($items['offers'] as $item) {
@@ -31,6 +32,24 @@ class CollectionBuilder
 
                 $this->collection[] = $product;
             }
+        }
+
+        return $this->collection;
+    }
+
+    /**
+     * @param array $items
+     * @return array
+     */
+    public function createCollectionCategory(array $items): array
+    {
+        foreach ($items['categories'] as $item) {
+            $category = new Category();
+
+            $category->setIdEpn($item['id'])
+                ->setName($item['title']);
+
+            $this->collection[] = $category;
         }
 
         return $this->collection;
