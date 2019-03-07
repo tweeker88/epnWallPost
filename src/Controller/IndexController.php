@@ -2,12 +2,9 @@
 
 namespace App\Controller;
 
-use App\Api\Epn;
-use App\Api\Vk;
 use App\Repository\ProductRepository;
-use App\Service\MainService;
+use App\Service\ProductService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -17,12 +14,9 @@ class IndexController extends AbstractController
 {
 
     /**
-     * @var $vk Vk
-     * @var $epn Epn
-     * @var $builder MainService
+     * @var $builder ProductService
      */
-    private $vk;
-    private $epn;
+
     private $builder;
     /**
      * @var ProductRepository
@@ -31,15 +25,10 @@ class IndexController extends AbstractController
 
     /**
      * IndexController constructor.
-     * @param Vk $vk
-     * @param Epn $epn
-     * @param MainService $builder
      * @param ProductRepository $productRepository
      */
-    public function __construct(Vk $vk, Epn $epn, MainService $builder, ProductRepository $productRepository)
+    public function __construct(ProductService $builder, ProductRepository $productRepository)
     {
-        $this->vk = $vk;
-        $this->epn = $epn;
         $this->builder = $builder;
         $this->productRepository = $productRepository;
     }
@@ -57,20 +46,12 @@ class IndexController extends AbstractController
     }
 
     /**
-     * @Route("/categories", name="categories")
-     */
-    public function addCategories(): Response
-    {
-        return new JsonResponse($this->epn->sendRequestCategory());
-    }
-
-    /**
      * @Route("/get-products", name="get-products", methods={"GET"})
      * @return RedirectResponse
      */
     public function getProducts(): RedirectResponse
     {
-        $this->builder->getProducts();
+        $this->builder->get();
 
         return new RedirectResponse($this->generateUrl('index'));
     }
@@ -80,7 +61,7 @@ class IndexController extends AbstractController
      */
     public function DeleteAllProducts(): Response
     {
-        $this->builder->deleteAllProducts();
+        $this->builder->deleteAll();
 
         return new RedirectResponse($this->generateUrl('index'));
     }

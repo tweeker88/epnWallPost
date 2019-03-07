@@ -31,10 +31,8 @@ class Epn
     }
 
     /**
-     * @param int $limit
-     * @param int $offset
      * @param string $category
-     * @return bool
+     * @return array
      */
     public function sendRequestSearch(string $category): array
     {

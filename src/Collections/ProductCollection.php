@@ -1,22 +1,17 @@
 <?php
 
-namespace App\Service;
+namespace App\Collections;
 
 
 use App\Entity\Product;
 
-class CollectionBuilder
+class ProductCollection extends Collection
 {
-    /**
-     * @var array $collection
-     */
-    private $collection;
-
     /**
      * @param array $items
      * @return array
      */
-    public function createCollection(array $items): array
+    public function create(array $items): array
     {
         if ($items['total_found'] !== 0) {
             foreach ($items['offers'] as $item) {

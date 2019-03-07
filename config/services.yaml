@@ -43,3 +43,10 @@ services:
     arguments:
       $epn: '@App\Epn\clEPNAPIAccess'
 
+
+  App\Service\ProductService:
+    arguments:
+      $repository: '@App\Repository\ProductRepository'
+      $collectionBuilder: '@App\Service\Collection\ProductCollection'
+      $epn: App\Api\Epn
+
