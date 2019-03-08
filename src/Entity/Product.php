@@ -10,6 +10,10 @@ use Gedmo\Mapping\Annotation as Gedmo;
  */
 class Product
 {
+
+    private const IS_POST = 'post';
+    private const IS_WAIT = 'wait';
+    private const IS_CHECK = 'check';
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -53,6 +57,11 @@ class Product
      * @ORM\Column(type="datetime")
      */
     private $createdAt;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $status = self::IS_WAIT;
 
     public function getId(): ?int
     {
@@ -139,6 +148,22 @@ class Product
     public function setCreatedAt(\DateTimeInterface $createdAt): self
     {
         $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function getStatus(): ?string
+    {
+        return $this->status;
+    }
+
+    public function setStatus(string $status): self
+    {
+        if (!in_array($status, array(self::IS_CHECK, self::IS_POST), true)) {
+            throw new \InvalidArgumentException("Invalid status");
+        }
+
+        $this->status = $status;
 
         return $this;
     }

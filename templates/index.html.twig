@@ -6,11 +6,11 @@
             <i class="fas fa-box-open pr-icon"></i>
             <div class="lh-100">
                 <h6 class="mb-0 text-white lh-100">Товары</h6>
-                {%  if lastDate %}
-                <small>Последнее
-                    обновление: {{ lastDate| date("d.m.Y") }}
-                </small>
-               {% endif %}
+                {% if lastDate %}
+                    <small>Последнее
+                        обновление: {{ lastDate| date("d.m.Y") }}
+                    </small>
+                {% endif %}
             </div>
         </div>
         <div class="col-md-5">
@@ -23,6 +23,7 @@
         <tr>
             <th>Название</th>
             <th>Цена</th>
+            <th>Статус</th>
         </tr>
         </thead>
         <tbody>
@@ -35,6 +36,17 @@
                 </td>
                 <td>
                     {{ product.salePrice }}
+                </td>
+                <td>
+                    {% if product.status == 'wait' %}
+                    <span style="color:red;font-weight: bold">
+                    {% elseif product.status == 'post' %}
+                    <span style="color:green;font-weight: bold">
+                    {% elseif product.status == 'check' %}
+                    <span style="color:blue;font-weight: bold">
+                    {% endif %}
+                        {{ product.status }}
+                    </span>
                 </td>
             </tr>
         {% endfor %}
