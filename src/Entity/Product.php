@@ -140,9 +140,9 @@ class Product
         return $this;
     }
 
-    public function getCreatedAt(): string
+    public function getCreatedAt(): \DateTimeInterface
     {
-        return $this->createdAt->format('Y-d-m');
+        return $this->createdAt;
     }
 
     public function setCreatedAt(\DateTimeInterface $createdAt): self

@@ -61,10 +61,10 @@ class ProductService
         try {
             /** @var Product $lastProduct */
             $lastProduct = $this->productRepository->findLastProduct();
-
         } catch (NonUniqueResultException $e) {
             return null;
         }
+
         return $lastProduct->getCreatedAt();
     }
 

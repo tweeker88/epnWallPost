@@ -67,6 +67,7 @@ class CategoryService
         } catch (NonUniqueResultException $e) {
             return null;
         }
+
         return $lastCategory->getCreatedAt();
     }
 

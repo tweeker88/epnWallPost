@@ -5,7 +5,6 @@ namespace App\Controller;
 use App\Api\Epn;
 use App\Api\Vk;
 use App\Repository\ProductRepository;
-use App\Service\CategoryService;
 use App\Service\ProductService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;

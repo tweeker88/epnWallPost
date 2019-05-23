@@ -63,9 +63,9 @@ class Category
         return $this;
     }
 
-    public function getCreatedAt(): string
+    public function getCreatedAt()
     {
-        return $this->createdAt->format('Y-d-m');
+        return $this->createdAt;
     }
 
     public function setCreatedAt(\DateTimeInterface $createdAt): self

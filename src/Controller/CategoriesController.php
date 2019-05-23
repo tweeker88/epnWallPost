@@ -37,6 +37,8 @@ class CategoriesController extends AbstractController
 
     /**
      * @Route("/categories", name="categories")
+     * @param Request $request
+     * @return Response
      */
     public function index(Request $request): Response
     {

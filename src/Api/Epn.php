@@ -33,6 +33,7 @@ class Epn
     /**
      * @param string $category
      * @return array
+     * @throws \Exception
      */
     public function sendRequestSearch(string $category): array
     {
@@ -46,8 +47,11 @@ class Epn
             'currency' => 'RUR'
         ]);
 
-
         $this->epn->RunRequests();
+
+        if (!empty($this->getErrorsList())){
+            throw new \Exception($this->getErrorsList());
+        }
 
         return $this->epn->GetRequestResult('random_goods_1');
     }
