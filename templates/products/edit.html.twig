@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-md-5">
+            <img src="{{ product.picture }}" alt="..." class="img-thumbnail">
+        </div>
+        <div class="col-md-6">
+            {{ form_start(form) }}
+            <div class="my-custom-class-for-errors">
+                {{ form_errors(form) }}
+            </div>
+            {{ form_row(form.name) }}
+            {{ form_end(form) }}
+        </div>
+    </div>
+{% endblock %}
