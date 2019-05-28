@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Product;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -15,6 +16,13 @@ class ProductType extends AbstractType
     {
         $builder
             ->add('name', TextareaType::class, ['label' => 'Название'])
+            ->add('status', ChoiceType::class,[
+                'choices' => [
+                    'Ожидание проверки' => 'wait',
+                    'Прошел проверку' => 'check'
+                ],
+                'label' => 'Статус'
+            ])
             ->add('save', SubmitType::class, [
                 'attr' => ['class' => 'btn btn-success'],
                 'label' => 'Сохранить'

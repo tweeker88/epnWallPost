@@ -10,7 +10,6 @@ use Gedmo\Mapping\Annotation as Gedmo;
  */
 class Product
 {
-
     private const IS_POST = 'post';
     private const IS_WAIT = 'wait';
     private const IS_CHECK = 'check';

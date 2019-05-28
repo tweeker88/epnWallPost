@@ -4,14 +4,13 @@ namespace App\Service;
 
 
 use App\Api\PostingInterface;
-use App\Api\Vk;
 use App\Entity\Product;
 use App\Repository\ProductRepository;
 
 class PosterService
 {
     /**
-     * @var Vk
+     * @var PostingInterface
      */
     private $posting;
     /**
@@ -29,19 +28,20 @@ class PosterService
 
     public function run()
     {
-        $products = $this->productRepository->findProductsForPosting();
+        do {
+            /* @var Product $product */
 
-        if ($this->isEmpty($products)) {
-            return false;
-        }
-        /* @var Product $product */
-        foreach ($products as $product) {
+            $product = $this->productRepository->findProductForPosting();
+
+            if ($this->isEmpty($product)) {
+                return false;
+            }
             $this->posting->sendRequest($product);
-        }
+        } while ($this->posting->getAnswer());
     }
 
-    private function isEmpty($products)
+    private function isEmpty($product)
     {
-        return $products === null;
+        return $product === null;
     }
 }

@@ -15,6 +15,7 @@ class Vk implements PostingInterface
 
     private const TOKEN = 'd9ca5cf67e78e8fc8bf5023406741b087f7a0a988679f1e868c64e716056cea4c4bc03b3952b350e94c9d';
     private const GROUP_ID = '-177306035';
+    private $response;
     /**
      * @var FileManager
      */
@@ -30,26 +31,25 @@ class Vk implements PostingInterface
 
     public function sendRequest(Product $product)
     {
-        if (!$this->fileManager->createFile(strrchr($product->getPicture(), '/'), $product)) {
-            return false;
-        }
+        $this->fileManager->createFile(strrchr($product->getPicture(), '/'), $product);
+
         $pathToFile = $this->fileManager->getNameFile(strrchr($product->getPicture(), '/'));
 
         $answerPhoto = $this->prepareCurlForPhoto($pathToFile);
 
         $photo = $this->uploadPhoto($answerPhoto);
 
-        $this->uploadProduct($photo, $product);
+        $this->response = $this->uploadProduct($photo, $product);
 
         sleep(5);
     }
 
     public function getAnswer()
     {
-
+        return !isset($this->response['market_item_id']);
     }
 
-    private function getAdressForPhoto()
+    private function getAddressForPhoto()
     {
         return $this->vk->photos()->getMarketUploadServer(self::TOKEN, [
             'group_id' => 177306035,
@@ -59,7 +59,7 @@ class Vk implements PostingInterface
 
     private function prepareCurlForPhoto(string $path)
     {
-        $adress = $this->getAdressForPhoto();
+        $adress = $this->getAddressForPhoto();
 
         $cfile = curl_file_create($path, 'image/jpeg', 'test.jpg');
 
@@ -87,7 +87,7 @@ class Vk implements PostingInterface
 
     private function uploadProduct($photo,Product $product)
     {
-        $this->vk->market()->add(self::TOKEN, [
+        return $this->vk->market()->add(self::TOKEN, [
             'owner_id' => self::GROUP_ID,
             'name' => $product->getName(),
             'description' => $product->getName(),

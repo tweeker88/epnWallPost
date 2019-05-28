@@ -65,7 +65,7 @@ class ProductRepository extends ServiceEntityRepository
 
         if ($term !== null) {
             $qb->andWhere('p.name LIKE :term')
-                ->setParameter('term' , '%' . $term . '%');
+                ->setParameter('term', '%' . $term . '%');
         }
 
         return $qb->orderBy('p.createdAt', 'DESC')
@@ -73,14 +73,14 @@ class ProductRepository extends ServiceEntityRepository
             ->getResult();
     }
 
-    public function findProductsForPosting()
+    public function findProductForPosting()
     {
         $qb = $this->createQueryBuilder('p');
 
-        $qb->andWhere('p.status = :status')
-        ->setParameter('status', 'check');
-
-        return $qb->getQuery()
-            ->getResult();
+        return $qb->andWhere('p.status = :status')
+            ->setParameter('status', 'check')
+            ->setMaxResults(1)
+            ->getQuery()
+            ->getOneOrNullResult();
     }
 }
