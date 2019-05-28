@@ -43,3 +43,6 @@ services:
     arguments:
       $epn: '@App\Epn\clEPNAPIAccess'
 
+  App\Service\PosterService:
+    arguments:
+      $posting: '@App\Api\Vk'

@@ -72,4 +72,15 @@ class ProductRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+
+    public function findProductsForPosting()
+    {
+        $qb = $this->createQueryBuilder('p');
+
+        $qb->andWhere('p.status = :status')
+        ->setParameter('status', 'check');
+
+        return $qb->getQuery()
+            ->getResult();
+    }
 }
