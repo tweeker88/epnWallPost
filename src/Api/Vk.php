@@ -8,14 +8,13 @@ use App\Repository\ProductRepository;
 use App\Service\FileManager;
 use VK\Client\VKApiClient;
 
-class Vk implements PostingInterface
+class Vk
 {
-    /** @var PostingInterface */
+    /** @var SocialInterface */
     private $vk;
 
-    private const TOKEN = 'd9ca5cf67e78e8fc8bf5023406741b087f7a0a988679f1e868c64e716056cea4c4bc03b3952b350e94c9d';
-    private const GROUP_ID = '-177306035';
-    private $response;
+    private const TOKEN = '7d9d608609d87e9dba1ccdb975fcb1839334164623e2f48749f803b258d1ae7f78d95a851fd4528924f2b';
+    private const GROUP_ID = 177306035;
     /**
      * @var FileManager
      */
@@ -29,41 +28,62 @@ class Vk implements PostingInterface
         $this->fileManager = $fileManager;
     }
 
-    public function sendRequest(Product $product)
+    public function wallPost(Product $product)
     {
         $this->fileManager->createFile(strrchr($product->getPicture(), '/'), $product);
 
         $pathToFile = $this->fileManager->getNameFile(strrchr($product->getPicture(), '/'));
 
-        $answerPhoto = $this->prepareCurlForPhoto($pathToFile);
+        $addressServer = $this->getUploadServerForPhoto();
 
-        $photo = $this->uploadPhoto($answerPhoto);
+        $photoInServer = $this->uploadPhoto($pathToFile, $addressServer);
 
-        $this->response = $this->uploadProduct($photo, $product);
+        $photo = $this->saveWallPhoto($photoInServer);
 
-        sleep(5);
+        return $this->createPost($photo, $product);
     }
 
-    public function getAnswer()
+    private function createPost($photo,Product $product)
     {
-        return !isset($this->response['market_item_id']);
+        return $this->vk->wall()->post(
+            self::TOKEN,
+            [
+                'owner_id' => (int)('-' . self::GROUP_ID),
+                'rom_group' => 1,
+                'message' => $product->getName() . PHP_EOL . 'Цена: ' . $product->getPrice() . ' руб.'  . PHP_EOL . 'Подробнее: ' . $product->getUrl(),
+                'attachments' => 'photo'.$photo[0]['owner_id']. '_' . $photo[0]['id'].','. $product->getUrl()
+            ]
+        );
     }
 
-    private function getAddressForPhoto()
+    private function saveWallPhoto($photoInServer)
     {
-        return $this->vk->photos()->getMarketUploadServer(self::TOKEN, [
-            'group_id' => 177306035,
-            'main_photo' => 1,
-        ]);
+        return $this->vk->photos()->saveWallPhoto(
+            self::TOKEN,
+            [
+                'group_id' => self::GROUP_ID,
+                'photo' => $photoInServer['photo'],
+                'server' => $photoInServer['server'],
+                'hash' => $photoInServer['hash'],
+
+            ]
+        );
     }
 
-    private function prepareCurlForPhoto(string $path)
+    private function getUploadServerForPhoto(): array
     {
-        $adress = $this->getAddressForPhoto();
+        return $this->vk->photos()->getWallUploadServer(
+            self::TOKEN,
+            [
+                'group_id' => self::GROUP_ID
+            ]);
+    }
 
-        $cfile = curl_file_create($path, 'image/jpeg', 'test.jpg');
+    private function uploadPhoto($file, $address)
+    {
+        $cfile = curl_file_create($file, 'image/jpeg', 'test.jpg');
 
-        $ch = curl_init($adress['upload_url']);
+        $ch = curl_init($address['upload_url']);
         curl_setopt($ch, CURLOPT_POST, true);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($ch, CURLOPT_POSTFIELDS, array("file" => $cfile));
@@ -71,30 +91,5 @@ class Vk implements PostingInterface
         curl_close($ch);
 
         return $result;
-    }
-
-    private function uploadPhoto(array $answerPhoto)
-    {
-        return $this->vk->photos()->saveMarketPhoto(self::TOKEN, [
-            'group_id' => 177306035,
-            'photo' => $answerPhoto['photo'],
-            'server' => $answerPhoto['server'],
-            'hash' => $answerPhoto['hash'],
-            'crop_data' => $answerPhoto['crop_data'],
-            'crop_hash' => $answerPhoto['crop_hash'],
-        ]);
-    }
-
-    private function uploadProduct($photo,Product $product)
-    {
-        return $this->vk->market()->add(self::TOKEN, [
-            'owner_id' => self::GROUP_ID,
-            'name' => $product->getName(),
-            'description' => $product->getName(),
-            'category_id' => 1,
-            'price' => $product->getSalePrice(),
-            'main_photo_id' => $photo[0]['id'],
-            'url' => $product->getUrl()
-        ]);
     }
 }

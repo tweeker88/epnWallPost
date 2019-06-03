@@ -5,7 +5,6 @@ namespace App\Controller;
 use App\Entity\Product;
 use App\Form\ProductType;
 use App\Repository\ProductRepository;
-use App\Service\PosterService;
 use App\Service\ProductService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -85,17 +84,5 @@ class ProductController extends AbstractController
             'product' => $product,
             'form' => $form->createView()
         ]);
-    }
-
-    /**
-     * @param PosterService $posterService
-     * @return Response
-     * @Route("/run", name="run")
-     */
-    public function send(PosterService $posterService)
-    {
-        $posterService->run();
-
-        return new Response('index');
     }
 }
