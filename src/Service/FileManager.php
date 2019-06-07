@@ -3,8 +3,6 @@
 namespace App\Service;
 
 
-use App\Entity\Product;
-
 class FileManager
 {
     private const PATH = __DIR__ . '/../../public/img';
@@ -14,16 +12,16 @@ class FileManager
         return file_exists(self::PATH. $name);
     }
 
-    public function createFile(string $name, Product $product)
+    public function createFile(string $name, string $url)
     {
         if($this->fileExist($name)){
             return false;
         }
 
-        return file_put_contents(self::PATH. $name, file_get_contents($product->getPicture()));
+        return file_put_contents(self::PATH. $name, file_get_contents($url));
     }
 
-    public function getNameFile($name)
+    public function getNameFile(string $name)
     {
         return self::PATH. $name;
     }

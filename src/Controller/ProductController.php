@@ -56,33 +56,4 @@ class ProductController extends AbstractController
 
         return $this->redirectToRoute('index');
     }
-
-    /**
-     * @param Product $product
-     * @param Request $request
-     * @param EntityManagerInterface $em
-     * @Route("/edit/{id}", name="edit_product")
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
-     */
-    public function edit(Product $product, Request $request, EntityManagerInterface $em)
-    {
-        $form = $this->createForm(ProductType::class, $product);
-
-        $form->handleRequest($request);
-
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            /** @var Product $stream */
-            $product = $form->getData();
-            $em->persist($product);
-            $em->flush();
-
-            return $this->redirectToRoute('index');
-        }
-
-        return $this->render('products/edit.html.twig', [
-            'product' => $product,
-            'form' => $form->createView()
-        ]);
-    }
 }

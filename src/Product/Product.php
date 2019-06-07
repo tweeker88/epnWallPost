@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Entity;
+namespace App\Product;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;

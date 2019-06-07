@@ -30,9 +30,7 @@ class Vk
 
     public function wallPost(Product $product)
     {
-        $this->fileManager->createFile(strrchr($product->getPicture(), '/'), $product);
 
-        $pathToFile = $this->fileManager->getNameFile(strrchr($product->getPicture(), '/'));
 
         $addressServer = $this->getUploadServerForPhoto();
 
